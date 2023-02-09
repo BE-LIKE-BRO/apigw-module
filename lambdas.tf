@@ -42,7 +42,7 @@ resource "aws_lambda_function" "default_with_vpc" {
 }
 
 resource "aws_lambda_function" "authorizer_without_vpc" {
-  count            = var.authorizer_count > 0 ? var.authorizer_count : 0
+  count            = length(var.authorizer_names) > 0 ? length(var.authorizer_names) : 0
   filename         = var.filename
   description      = var.description
   source_code_hash = filebase64sha256(var.filename)
@@ -61,7 +61,7 @@ resource "aws_lambda_function" "authorizer_without_vpc" {
 }
 
 resource "aws_lambda_function" "authorizer_with_vpc" {
-  count            = var.authorizer_count > 0 && var.attach_vpc_config ? var.authorizer_count : 0
+  count            = length(var.authorizer_names) > 0 && var.attach_vpc_config ? length(var.authorizer_names) : 0
   filename         = var.filename
   description      = var.description
   source_code_hash = filebase64sha256(var.filename)
@@ -93,7 +93,7 @@ resource "aws_lambda_permission" "execute_api" {
 }
 
 resource "aws_lambda_permission" "authorizer" {
-  count         = var.authorizer_count
+  count         = length(var.authorizer_names)
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
   function_name = var.attach_vpc_config ? aws_lambda_function.authorizer_with_vpc[count.index].id : aws_lambda_function.authorizer_without_vpc[count.index].id
