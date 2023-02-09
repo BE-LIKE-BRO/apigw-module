@@ -103,7 +103,7 @@ resource "aws_api_gateway_client_certificate" "default" {
 }
 
 resource "aws_api_gateway_authorizer" "default" {
-  count                            = var.authorizer_count > 0 ? var.authorizer_count : 0
+  count                            = length(var.authorizer_names) > 0 ? length(var.authorizer_names) : 0
   rest_api_id                      = aws_api_gateway_rest_api.default[0].id
   name                             = element(var.authorizer_names, count.index)
   authorizer_uri                   = length(var.authorizer_uri) > 0 ? element(var.authorizer_uri, count.index) : aws_lambda_function.authorizer_without_vpc[count.index].invoke_arn

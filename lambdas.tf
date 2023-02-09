@@ -107,6 +107,7 @@ resource "aws_cloudwatch_log_group" "default" {
 }
 
 resource "aws_cloudwatch_log_group" "authorizer" {
-  name              = "/aws/lambda/authorizer-lambda"
+  count = length(var.authorizer_names)
+  name              = "/aws/lambda/${element(var.authorizer_lambdas, count.index)}"
   retention_in_days = 14
 }

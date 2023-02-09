@@ -40,6 +40,12 @@ variable "function_name" {
   description = ""
 }
 
+variable "authorizer_lambdas" {
+  type        = list(string)
+  default     = ["authorizer-lambda"]
+  description = ""
+}
+
 variable "filename" {
   type        = string
   default     = "code.zip"
@@ -215,7 +221,7 @@ variable "stage_variables" {
 variable "stage_name" {
   type        = string
   default     = "test2"
-  description = "The name of the stage."
+  description = "The name of the stage to deploy"
 }
 
 variable "stage_names" {
@@ -247,12 +253,6 @@ variable "stage_enabled" {
   type        = bool
   default     = false
   description = "Should stage for rest api be created?"
-}
-
-variable "authorizer_count" {
-  type        = number
-  default     = 1
-  description = "Number of Authorizers to create for api."
 }
 
 variable "authorizer_names" {
@@ -375,7 +375,7 @@ variable "environment" {
 
 variable "status_codes" {
   type        = list(any)
-  default     = []
+  default     = ["200"]
   description = "The HTTP status code."
 }
 
