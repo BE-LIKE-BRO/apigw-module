@@ -48,7 +48,13 @@ variable "authorizer_lambdas" {
 
 variable "filename" {
   type        = string
-  default     = "code.zip"
+  default     = ""
+  description = ""
+}
+
+variable "authorizer_file" {
+  type        = string
+  default     = ""
   description = ""
 }
 
@@ -257,7 +263,7 @@ variable "stage_enabled" {
 
 variable "authorizer_names" {
   type        = list(any)
-  default     = ["test"]
+  default     = ["authorizer1"]
   description = "Authorizer names"
 }
 

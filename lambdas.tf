@@ -12,9 +12,9 @@ resource "aws_lambda_function" "default_without_vpc" {
   publish          = var.publish
 
   # environment variables for the lambda function
-  # environment {
-  #   variables = var.environment
-  # }
+  environment {
+    variables = var.environment
+  }
 }
 
 resource "aws_lambda_function" "default_with_vpc" {
@@ -43,10 +43,10 @@ resource "aws_lambda_function" "default_with_vpc" {
 
 resource "aws_lambda_function" "authorizer_without_vpc" {
   count            = length(var.authorizer_names) > 0 ? length(var.authorizer_names) : 0
-  filename         = var.filename
+  filename         = var.authorizer_file
   description      = var.description
   source_code_hash = filebase64sha256(var.filename)
-  function_name    = "authorizer-lambda"
+  function_name    = var.authorizer_names
   role             = var.role
   handler          = var.handler
   runtime          = var.runtime
@@ -55,17 +55,17 @@ resource "aws_lambda_function" "authorizer_without_vpc" {
   publish          = var.publish
 
   # environment variables for the lambda function
-  # environment {
-  #   variables = var.environment
-  # }
+  environment {
+    variables = var.environment
+  }
 }
 
 resource "aws_lambda_function" "authorizer_with_vpc" {
   count            = length(var.authorizer_names) > 0 && var.attach_vpc_config ? length(var.authorizer_names) : 0
-  filename         = var.filename
+  filename         = var.authorizer_file
   description      = var.description
   source_code_hash = filebase64sha256(var.filename)
-  function_name    = "authorizer-lambda"
+  function_name    = var.authorizer_names
   role             = var.role
   handler          = var.handler
   runtime          = var.runtime
@@ -74,9 +74,9 @@ resource "aws_lambda_function" "authorizer_with_vpc" {
   publish          = var.publish
 
   # environment variables for the lambda function
-  # environment {
-  #   variables = var.environment
-  # }
+  environment {
+    variables = var.environment
+  }
 
   vpc_config {
     security_group_ids = var.vpc_config["security_group_ids"]
