@@ -46,7 +46,7 @@ resource "aws_lambda_function" "authorizer_without_vpc" {
   filename         = var.authorizer_file
   description      = var.description
   source_code_hash = filebase64sha256(var.filename)
-  function_name    = var.authorizer_names
+  function_name    = var.authorizer_name
   role             = var.role
   handler          = var.handler
   runtime          = var.runtime
@@ -65,7 +65,7 @@ resource "aws_lambda_function" "authorizer_with_vpc" {
   filename         = var.authorizer_file
   description      = var.description
   source_code_hash = filebase64sha256(var.filename)
-  function_name    = var.authorizer_names
+  function_name    = var.authorizer_name
   role             = var.role
   handler          = var.handler
   runtime          = var.runtime

@@ -40,6 +40,12 @@ variable "function_name" {
   description = ""
 }
 
+variable "authorizer_name" {
+  type        = string
+  default     = "authorizer-lambda"
+  description = "Authorizer names"
+}
+
 variable "authorizer_lambdas" {
   type        = list(string)
   default     = ["authorizer-lambda"]
