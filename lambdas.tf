@@ -13,7 +13,7 @@ resource "aws_lambda_function" "default_without_vpc" {
 
   # environment variables for the lambda function
   environment {
-    variables = var.environment
+    variables = var.environment.variables
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_lambda_function" "default_with_vpc" {
 
   # environment variables for the lambda function
   environment {
-    variables = var.environment
+    variables = var.environment.variables
   }
 
   vpc_config {
@@ -56,7 +56,7 @@ resource "aws_lambda_function" "authorizer_without_vpc" {
 
   # environment variables for the lambda function
   environment {
-    variables = var.environment
+    variables = var.environment.variables
   }
 }
 
@@ -75,7 +75,7 @@ resource "aws_lambda_function" "authorizer_with_vpc" {
 
   # environment variables for the lambda function
   environment {
-    variables = var.environment
+    variables = var.environment.variables
   }
 
   vpc_config {
