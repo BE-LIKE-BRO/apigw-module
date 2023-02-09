@@ -245,7 +245,7 @@ variable "cert_description" {
 
 variable "stage_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "Should stage for rest api be created?"
 }
 
@@ -371,4 +371,22 @@ variable "environment" {
   description = "Environment configuration for the Lambda function"
   default     = {}
   type        = map(any)
+}
+
+variable "status_codes" {
+  type        = list(any)
+  default     = []
+  description = "The HTTP status code."
+}
+
+variable "response_models" {
+  type        = list(any)
+  default     = []
+  description = "A map of the API models used for the response's content type."
+}
+
+variable "response_parameters" {
+  type        = list(any)
+  default     = []
+  description = "A map of response parameters that can be sent to the caller. For example: response_parameters = { \"method.response.header.X-Some-Header\" = true } would define that the header X-Some-Header can be provided on the response."
 }

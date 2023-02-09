@@ -37,9 +37,9 @@ resource "aws_api_gateway_method_response" "default" {
   resource_id = aws_api_gateway_resource.default[count.index].id
   http_method = aws_api_gateway_method.default[count.index].http_method
   status_code = 200
-  # status_code         = element(var.status_codes, count.index)
-  # response_models     = length(var.response_models) > 0 ? element(var.response_models, count.index) : {}
-  # response_parameters = length(var.response_parameters) > 0 ? element(var.response_parameters, count.index) : {}
+  status_codes         = element(var.status_codes, count.index)
+  response_models     = length(var.response_models) > 0 ? element(var.response_models, count.index) : {}
+  response_parameters = length(var.response_parameters) > 0 ? element(var.response_parameters, count.index) : {}
 }
 
 resource "aws_api_gateway_integration" "default" {
@@ -70,7 +70,7 @@ resource "aws_api_gateway_deployment" "default" {
 }
 
 resource "aws_api_gateway_stage" "without_logs" {
-  count = var.deployment_enabled && var.stage_enabled && length(var.stage_names) > 0 ? length(var.stage_names) : 0 && var.api_log_enabled ? 0 : 1
+  count = var.deployment_enabled && var.stage_enabled && length(var.stage_names) > 0 ? length(var.stage_names) : 0 
 
   rest_api_id           = aws_api_gateway_rest_api.default[0].id
   deployment_id         = aws_api_gateway_deployment.default[0].id
